@@ -1,4 +1,6 @@
 # 智能进化·Data Agent (基于 MinerU 与 DeepSeek)
+ GitHub 仓库链接
+https://github.com/TianZaiShuiZhong/MU2
 
 > **所属赛道**：智能进化·Agent 能力评测赛道  
 > **核心依托**：MinerU SaaS 工具链 + DeepSeek 深度推理  
@@ -82,11 +84,11 @@ python scripts/run_real_pdf_test.py \
   --metrics 营业收入 资产总计 负债合计 所有者权益合计
 ```
 
-更多参数说明见 [docs/使用 MinerU.md](docs/使用%20MinerU.md)。
+更多参数可通过 `python scripts/run_real_pdf_test.py --help` 查看，API 调用说明见 [docs/DEPLOYMENT_AND_API.md](docs/DEPLOYMENT_AND_API.md)。
 
 ### 0.1 提交材料总览
 
-赛题要求对应的提交材料汇总见 [submission/SUBMISSION_PACKAGE.md](submission/SUBMISSION_PACKAGE.md)，逐项对照检查见 [submission/SUBMISSION_REQUIREMENTS_CHECKLIST.md](submission/SUBMISSION_REQUIREMENTS_CHECKLIST.md)。其中完整部署/API 说明见 [docs/DEPLOYMENT_AND_API.md](docs/DEPLOYMENT_AND_API.md)，技术报告见 [docs/TECHNICAL_REPORT.md](docs/TECHNICAL_REPORT.md)，运行日志与测试结果见 [docs/EXECUTION_LOGS.md](docs/EXECUTION_LOGS.md)。
+赛题要求对应的提交材料汇总见 [submission/SUBMISSION_PACKAGE.md](submission/SUBMISSION_PACKAGE.md)。其中完整部署/API 说明见 [docs/DEPLOYMENT_AND_API.md](docs/DEPLOYMENT_AND_API.md)，技术报告见 [docs/TECHNICAL_REPORT.md](docs/TECHNICAL_REPORT.md)，运行日志与测试结果见 [docs/EXECUTION_LOGS.md](docs/EXECUTION_LOGS.md)。
 评审快速入口见 [submission/FINAL_SUBMISSION.md](submission/FINAL_SUBMISSION.md)，该文件集中说明赛题要求、项目实现、运行方式、API 调用和验证命令。
 
 ### 1. 提交解析任务 (异步提交)
