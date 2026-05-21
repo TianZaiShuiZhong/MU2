@@ -1,10 +1,13 @@
 import asyncio
+import sys
 import tempfile
 from pathlib import Path
 
 from fastapi import BackgroundTasks
 
-import main
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from data_agent import main
 
 
 class FakeMinerUClient:

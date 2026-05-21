@@ -1,8 +1,12 @@
 import io
+import sys
 import zipfile
+from pathlib import Path
 from unittest.mock import patch
 
-from agent import UniversalDataAgent
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from data_agent.agent import UniversalDataAgent
 
 
 class FakeResponse:
@@ -24,12 +28,12 @@ def build_zip_with_markdown(markdown: str) -> bytes:
 def main() -> None:
     agent = UniversalDataAgent(llm_api_key="unit-test-key")
 
-    with patch("agent.requests.get", return_value=FakeResponse(text="# Markdown from lightweight API")):
+    with patch("data_agent.agent.requests.get", return_value=FakeResponse(text="# Markdown from lightweight API")):
         markdown = agent.download_and_extract_md({"markdown_url": "https://example.com/full.md"})
         assert markdown == "# Markdown from lightweight API"
 
     zip_bytes = build_zip_with_markdown("# Markdown from zip")
-    with patch("agent.requests.get", return_value=FakeResponse(content=zip_bytes)):
+    with patch("data_agent.agent.requests.get", return_value=FakeResponse(content=zip_bytes)):
         markdown = agent.download_and_extract_md({"full_zip_url": "https://example.com/result.zip"})
         assert markdown == "# Markdown from zip"
 

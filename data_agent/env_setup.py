@@ -4,7 +4,7 @@ from pathlib import Path
 
 def load_environment() -> None:
     """Load environment variables from a local .env file when available."""
-    env_path = Path(__file__).with_name(".env")
+    env_path = Path(__file__).resolve().parent.parent / ".env"
     if not env_path.exists():
         return
 

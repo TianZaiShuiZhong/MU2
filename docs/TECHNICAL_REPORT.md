@@ -1,4 +1,4 @@
-# Data Agent 技术报告
+﻿# Data Agent 技术报告
 
 ## 1. 项目概述
 
@@ -15,17 +15,17 @@
 ### 2.1 架构分层
 
 - 接入层：FastAPI 服务提供 `/v1/agent/process`、`/v1/agent/task_status/{job_id}` 和 `/health`。
-- 解析层：`mineru_client.py` 负责提交 MinerU 解析任务并轮询结果。
-- 智能处理层：`agent.py` 负责 Markdown 抽取、场景路由、规则校验与 LLM 兜底。
+- 解析层：`data_agent/mineru_client.py` 负责提交 MinerU 解析任务并轮询结果。
+- 智能处理层：`data_agent/agent.py` 负责 Markdown 抽取、场景路由、规则校验与 LLM 兜底。
 - 状态层：`task_db.json` 保存任务生命周期，支持重启后继续查询。
-- 验证层：`test_local_finance.py`、`run_real_pdf_test.py`、`test_stability.py` 分别覆盖本地烟测、真实联调与并发稳定性。
+- 验证层：`tests/test_local_finance.py`、`scripts/run_real_pdf_test.py`、`tests/test_stability.py` 分别覆盖本地烟测、真实联调与并发稳定性。
 
 ### 2.2 任务执行机制
 
 1. 用户通过 API 提交任务，系统创建 `job_id` 并写入任务状态。
 2. 后台任务启动后，调用 MinerU 提交解析请求。
 3. MinerU 返回 `full_zip_url` 后，系统下载并解压 Markdown。
-4. `agent.py` 按场景构建上下文，并优先执行规则化直接抽取。
+4. `data_agent/agent.py` 按场景构建上下文，并优先执行规则化直接抽取。
 5. 若规则抽取不足或不完整，再交给 DeepSeek 进行结构化提取。
 6. 财务场景下进行一致性校验；必要时对缺失的 `所有者权益合计` 做恒等式补齐。
 7. 最终结果写回本地任务库，供轮询查询。
@@ -125,10 +125,10 @@
 
 ## 8. 已验证结果摘要
 
-- `python test_local_finance.py`：通过
-- `python test_agent_unit.py`：通过
-- `python test_stability.py`：通过
-- `python run_real_pdf_test.py`：真实 PDF 联调通过，页码范围 `114-130`
+- `python tests/test_local_finance.py`：通过
+- `python tests/test_agent_unit.py`：通过
+- `python tests/test_stability.py`：通过
+- `python scripts/run_real_pdf_test.py`：真实 PDF 联调通过，页码范围 `114-130`
 - `/health`：可用
 
 真实 PDF 联调输出摘要：

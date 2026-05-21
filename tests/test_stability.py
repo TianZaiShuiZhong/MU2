@@ -1,10 +1,13 @@
 import asyncio
+import sys
 import tempfile
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-import main
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from data_agent import main
 
 
 class FakeMinerUClient:

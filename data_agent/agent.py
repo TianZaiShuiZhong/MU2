@@ -6,7 +6,7 @@ import zipfile
 import io
 import re
 
-from env_setup import load_environment
+from data_agent.env_setup import load_environment
 
 load_environment()
 

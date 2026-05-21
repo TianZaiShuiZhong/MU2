@@ -7,14 +7,14 @@ import json
 import logging
 import threading
 
-from mineru_client import MinerUClient
-from agent import UniversalDataAgent
+from data_agent.mineru_client import MinerUClient
+from data_agent.agent import UniversalDataAgent
 
 app = FastAPI(title="Data Agent - 财报核心指标精准解析", version="1.0")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("DataAgentAPI")
 
-TASK_DB_PATH = Path(__file__).with_name("task_db.json")
+TASK_DB_PATH = Path(__file__).resolve().parent.parent / "task_db.json"
 task_db_lock = threading.Lock()
 TASK_RETENTION_SECONDS = 24 * 60 * 60
 
@@ -180,4 +180,4 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run("data_agent.main:app", host="0.0.0.0", port=8080, reload=True)

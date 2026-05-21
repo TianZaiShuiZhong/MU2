@@ -1,4 +1,4 @@
-# 系统部署、运行与 API 说明
+﻿# 系统部署、运行与 API 说明
 
 ## 1. 运行环境要求
 
@@ -47,13 +47,13 @@ MINERU_API_BASE_URL=https://mineru.net/api/v4/extract/task
 ### 本地启动
 
 ```bash
-python main.py
+python -m data_agent.main
 ```
 
 或：
 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8080
+uvicorn data_agent.main:app --host 0.0.0.0 --port 8080
 ```
 
 默认服务地址：
@@ -192,7 +192,7 @@ GET /v1/agent/task_status/{job_id}
 ### 本地烟测
 
 ```bash
-python test_local_finance.py
+python tests/test_local_finance.py
 ```
 
 期望输出：
@@ -204,7 +204,7 @@ local smoke test passed
 ### Agent 单元验证
 
 ```bash
-python test_agent_unit.py
+python tests/test_agent_unit.py
 ```
 
 期望输出：
@@ -216,7 +216,7 @@ agent unit validation passed
 ### 并发稳定性验证
 
 ```bash
-python test_stability.py
+python tests/test_stability.py
 ```
 
 期望输出：
@@ -228,7 +228,7 @@ stability validation passed | parallel_jobs=8 | removed_expired=1 | task_count=8
 ### 真实 PDF 联调
 
 ```bash
-python run_real_pdf_test.py
+python scripts/run_real_pdf_test.py
 ```
 
 期望结果：
@@ -278,8 +278,8 @@ task_db.json
 1. 克隆 GitHub 仓库。
 2. 安装依赖：`pip install -r requirements.txt`。
 3. 创建 `.env` 并填写 MinerU 与 DeepSeek 密钥。
-4. 启动服务：`python main.py`。
+4. 启动服务：`python -m data_agent.main`。
 5. 调用 `/health` 确认服务正常。
 6. 调用 `/v1/agent/process` 提交任务。
 7. 调用 `/v1/agent/task_status/{job_id}` 查询结果。
-8. 运行 `python run_real_pdf_test.py` 复现实测结果。
+8. 运行 `python scripts/run_real_pdf_test.py` 复现实测结果。

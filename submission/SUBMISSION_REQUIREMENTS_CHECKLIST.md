@@ -1,8 +1,8 @@
-# 参赛要求对照检查表
+﻿# 参赛要求对照检查表
 
 | 参赛要求 | 对应材料 | 当前状态 |
 | --- | --- | --- |
-| 开放系统实现代码或关键模块代码，开源至 GitHub 并提交 repo 链接 | `main.py`、`agent.py`、`mineru_client.py`、测试脚本；待上传 GitHub 后填写 repo 链接 | 代码已准备，待创建/上传 GitHub 仓库 |
+| 开放系统实现代码或关键模块代码，开源至 GitHub 并提交 repo 链接 | `data_agent/main.py`、`data_agent/agent.py`、`data_agent/mineru_client.py`、测试脚本；待上传 GitHub 后填写 repo 链接 | 代码已准备，待创建/上传 GitHub 仓库 |
 | 系统部署与运行说明文档 | `DEPLOYMENT_AND_API.md`、`README.md` | 已完成 |
 | 系统架构说明 | `README.md`、`TECHNICAL_REPORT.md`、`DEPLOYMENT_AND_API.md` | 已完成 |
 | 运行环境要求，包括操作系统、依赖库、硬件资源 | `DEPLOYMENT_AND_API.md` | 已完成 |
@@ -32,7 +32,7 @@
 真实 PDF 联调命令：
 
 ```bash
-python run_real_pdf_test.py
+python scripts/run_real_pdf_test.py
 ```
 
 验证结果：

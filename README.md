@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ```
 
 ### 2. 配置环境变量
-确保 `mineru_client.py` 及 `agent.py` 文件中，或环境变量中配置好您申请的密钥：
+确保环境变量中配置好您申请的密钥：
 - **MinerU API Token**: 用于拉起远端 VLM 解析。
 - **DeepSeek API Key**: 系统的大脑执行与分析模块。
    - 可选配置 `MINERU_API_BASE_URL` 覆盖 MinerU 接口地址。
@@ -55,8 +55,8 @@ pip install -r requirements.txt
 ### 3. 启动 API 服务
 在终端中运行以下命令：
 ```bash
-python main.py
-# 或使用 uvicorn 守护: uvicorn main:app --host 0.0.0.0 --port 8080 --reload
+python -m data_agent.main
+# 或使用 uvicorn 守护: uvicorn data_agent.main:app --host 0.0.0.0 --port 8080 --reload
 ```
 API 服务将默认开启在 `http://0.0.0.0:8080` （支持 `http://127.0.0.1:8080/docs` 可视化调试接口面板）。
 
@@ -66,17 +66,28 @@ API 服务将默认开启在 `http://0.0.0.0:8080` （支持 `http://127.0.0.1:8
 
 ### 0. 测试矩阵与稳定性验证
 
-完整测试矩阵和稳定性验证说明见 [TESTING.md](TESTING.md)。当前项目建议至少覆盖以下三类验证：
-- 本地烟测：`python test_local_finance.py`
-- 并发稳定性：`python test_stability.py`
-- 真实 PDF 联调：`python run_real_pdf_test.py`
+完整测试矩阵和稳定性验证说明见 [docs/TESTING.md](docs/TESTING.md)。当前项目建议至少覆盖以下三类验证：
+- 本地烟测：`python tests/test_local_finance.py`
+- 并发稳定性：`python tests/test_stability.py`
+- 真实 PDF 联调：`python scripts/run_real_pdf_test.py`
 
-其中 `test_stability.py` 会同时覆盖并发任务、过期任务清理和 `/health` 探活，适合作为提交前的稳定性回归检查。
+其中 `tests/test_stability.py` 会同时覆盖并发任务、过期任务清理和 `/health` 探活，适合作为提交前的稳定性回归检查。
+
+真实 PDF 联调脚本支持通过命令行指定 PDF、页码和指标：
+
+```bash
+python scripts/run_real_pdf_test.py \
+  --pdf-url "https://example.com/report.pdf" \
+  --page-ranges "114-130" \
+  --metrics 营业收入 资产总计 负债合计 所有者权益合计
+```
+
+更多参数说明见 [docs/使用 MinerU.md](docs/使用%20MinerU.md)。
 
 ### 0.1 提交材料总览
 
-赛题要求对应的提交材料汇总见 [SUBMISSION_PACKAGE.md](SUBMISSION_PACKAGE.md)，逐项对照检查见 [SUBMISSION_REQUIREMENTS_CHECKLIST.md](SUBMISSION_REQUIREMENTS_CHECKLIST.md)。其中完整部署/API 说明见 [DEPLOYMENT_AND_API.md](DEPLOYMENT_AND_API.md)，技术报告见 [TECHNICAL_REPORT.md](TECHNICAL_REPORT.md)，运行日志与测试结果见 [EXECUTION_LOGS.md](EXECUTION_LOGS.md)。
-评审快速入口见 [FINAL_SUBMISSION.md](FINAL_SUBMISSION.md)，该文件集中说明赛题要求、项目实现、运行方式、API 调用和验证命令。
+赛题要求对应的提交材料汇总见 [submission/SUBMISSION_PACKAGE.md](submission/SUBMISSION_PACKAGE.md)，逐项对照检查见 [submission/SUBMISSION_REQUIREMENTS_CHECKLIST.md](submission/SUBMISSION_REQUIREMENTS_CHECKLIST.md)。其中完整部署/API 说明见 [docs/DEPLOYMENT_AND_API.md](docs/DEPLOYMENT_AND_API.md)，技术报告见 [docs/TECHNICAL_REPORT.md](docs/TECHNICAL_REPORT.md)，运行日志与测试结果见 [docs/EXECUTION_LOGS.md](docs/EXECUTION_LOGS.md)。
+评审快速入口见 [submission/FINAL_SUBMISSION.md](submission/FINAL_SUBMISSION.md)，该文件集中说明赛题要求、项目实现、运行方式、API 调用和验证命令。
 
 ### 1. 提交解析任务 (异步提交)
 向 `/v1/agent/process` 提交 JSON 请求。此时会立即返回一个 `job_id` 供下一步轮询。
@@ -126,12 +137,18 @@ curl -X GET http://127.0.0.1:8080/health
 ## 📋 文件目录结构
 
 ```text
-📁 Project Root
- ├── main.py                // 接口定义、路由核心与 FastAPI 异步生命周期逻辑
- ├── agent.py               // 多场景切换大脑、防幻觉审计与 DeepSeek LLM 提取算法实现
- ├── mineru_client.py       // 极简包装的 MinerU SaaS 云直连工具包
- ├── requirements.txt       // 项目依赖项
- └── README.md              // 部署与产品使用文档
+Project Root
+├── data_agent/              # 服务源码与 Agent 核心逻辑
+│   ├── main.py              # FastAPI 入口、异步任务和状态查询
+│   ├── agent.py             # 多场景 Agent、规则抽取和 LLM 校验
+│   ├── mineru_client.py     # MinerU SaaS 客户端
+│   └── env_setup.py         # .env 加载
+├── tests/                   # 本地烟测、单元验证和稳定性测试
+├── scripts/                 # 真实 PDF 联调脚本
+├── docs/                    # 技术报告、测试矩阵、部署/API 文档
+├── submission/              # 提交说明和赛题材料清单
+├── requirements.txt         # 项目依赖项
+└── README.md                # 部署与产品使用文档
 ```
 
 **致谢**：感谢 MinerU 开源社区与 OpenXLab 提供的基石版面解析支持体系，让 Data Agent 的底层“长了眼睛”。

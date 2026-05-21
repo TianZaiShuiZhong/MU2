@@ -1,4 +1,4 @@
-# 运行日志与测试结果
+﻿# 运行日志与测试结果
 
 本文件用于记录系统在测试任务执行过程中的关键日志字段、测试入口与结果摘要，便于复现与追溯。
 
@@ -15,11 +15,11 @@
 
 - 命令：`python -m py_compile main.py agent.py mineru_client.py env_setup.py test_local_finance.py test_agent_unit.py test_stability.py run_real_pdf_test.py`
 - 结果：通过
-- 命令：`python test_agent_unit.py`
+- 命令：`python tests/test_agent_unit.py`
 - 结果：通过
 - 关键输出：
   - `agent unit validation passed`
-- 命令：启动 `uvicorn main:app --host 127.0.0.1 --port 8080` 后访问 `/health`
+- 命令：启动 `uvicorn data_agent.main:app --host 127.0.0.1 --port 8080` 后访问 `/health`
 - 结果：通过
 - 关键输出：
   - `status=healthy`
@@ -27,7 +27,7 @@
 
 ### 2.1 本地烟测
 
-- 命令：`python test_local_finance.py`
+- 命令：`python tests/test_local_finance.py`
 - 结果：通过
 - 关键输出：
   - `local smoke test passed`
@@ -36,7 +36,7 @@
 
 ### 2.2 真实 PDF 联调
 
-- 命令：`python run_real_pdf_test.py`
+- 命令：`python scripts/run_real_pdf_test.py`
 - 输入 PDF：`https://notice.10jqka.com.cn/api/pdf/e8639a5eb576c085.pdf`
 - 页码范围：`114-130`
 - 当前本地环境结果：通过
@@ -54,7 +54,7 @@
 
 ### 2.3 并发稳定性
 
-- 命令：`python test_stability.py`
+- 命令：`python tests/test_stability.py`
 - 结果：通过
 - 关键输出：
   - `stability validation passed`
@@ -88,7 +88,7 @@
 - 任务状态文件：`task_db.json`
 - API 结果查询：`GET /v1/agent/task_status/{job_id}`
 - 探活接口：`GET /health`
-- 本地复现脚本：`test_local_finance.py`、`test_stability.py`、`run_real_pdf_test.py`
+- 本地复现脚本：`tests/test_local_finance.py`、`tests/test_stability.py`、`scripts/run_real_pdf_test.py`
 
 ## 6. 结论
 

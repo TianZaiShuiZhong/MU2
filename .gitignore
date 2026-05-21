@@ -1,4 +1,5 @@
 .env
+.python312/
 task_db.json
 venv/
 __pycache__/
