@@ -178,6 +178,21 @@ async def health_check():
         }
     }
 
+
+@app.get("/")
+async def service_info():
+    return {
+        "code": 0,
+        "msg": "Data Agent API is running",
+        "data": {
+            "health": "/health",
+            "docs": "/docs",
+            "submit_task": "/v1/agent/process",
+            "task_status": "/v1/agent/task_status/{job_id}",
+        },
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("data_agent.main:app", host="0.0.0.0", port=8080, reload=True)

@@ -2,9 +2,20 @@
  GitHub 仓库链接
 https://github.com/TianZaiShuiZhong/MU2
 
+服务地址：
+https://guitar-captured-decorating-sims.trycloudflare.com
+
+接口文档：
+https://guitar-captured-decorating-sims.trycloudflare.com/docs
+
+健康检查：
+https://guitar-captured-decorating-sims.trycloudflare.com/health
+
+
 > **所属赛道**：智能进化·Agent 能力评测赛道  
 > **核心依托**：MinerU SaaS 工具链 + DeepSeek 深度推理  
 > **解决痛点**：财务报表情景下的高密度数字防幻觉、跨页信息合并与指代消解、OCR 低质量鲁棒去噪恢复。
+
 
 ---
 
@@ -40,9 +51,11 @@ https://github.com/TianZaiShuiZhong/MU2
 ## 🚀 快速开始与部署说明
 
 ### 1. 环境准备
-项目基于 Python 3.10+ 开发，首先请激活虚拟环境并安装核心依赖：
+项目推荐使用 Python 3.12。当前已在 Python 3.12 环境完成验证。首先创建并激活虚拟环境，再安装核心依赖：
 
 ```bash
+python -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
@@ -88,7 +101,7 @@ python scripts/run_real_pdf_test.py \
 
 ### 0.1 提交材料总览
 
-赛题要求对应的提交材料汇总见 [submission/SUBMISSION_PACKAGE.md](submission/SUBMISSION_PACKAGE.md)。其中完整部署/API 说明见 [docs/DEPLOYMENT_AND_API.md](docs/DEPLOYMENT_AND_API.md)，技术报告见 [docs/TECHNICAL_REPORT.md](docs/TECHNICAL_REPORT.md)，运行日志与测试结果见 [docs/EXECUTION_LOGS.md](docs/EXECUTION_LOGS.md)。
+完整部署/API 说明见 [docs/DEPLOYMENT_AND_API.md](docs/DEPLOYMENT_AND_API.md)，技术报告见 [docs/TECHNICAL_REPORT.md](docs/TECHNICAL_REPORT.md)，运行日志与测试结果见 [docs/EXECUTION_LOGS.md](docs/EXECUTION_LOGS.md)。
 评审快速入口见 [submission/FINAL_SUBMISSION.md](submission/FINAL_SUBMISSION.md)，该文件集中说明赛题要求、项目实现、运行方式、API 调用和验证命令。
 
 ### 1. 提交解析任务 (异步提交)

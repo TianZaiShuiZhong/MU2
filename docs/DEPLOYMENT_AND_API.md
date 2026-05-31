@@ -5,16 +5,18 @@
 ### 操作系统
 
 - 推荐：Linux、Windows 或 macOS 均可运行。
-- 当前验证环境：Windows + Python 虚拟环境。
+- 当前验证环境：Windows + Python 3.12 虚拟环境。
 
 ### Python 与依赖
 
-- Python：3.10 及以上。
+- Python：推荐 3.12，当前已验证版本为 3.12。
 - 依赖库：见 `requirements.txt`。
 
 安装命令：
 
 ```bash
+python -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
